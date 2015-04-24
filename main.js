@@ -12,7 +12,7 @@ module.exports.buildChainFromFiles = function (prefixLength) {
 		contents += fs.readFileSync(file, 'utf8');
 	});
 
-	chain.Build(contents)
+	chain.Build(contents);
 
 	return chain;
 };

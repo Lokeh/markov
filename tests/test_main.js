@@ -1,7 +1,7 @@
 'use strict';
 
 let main = require('../main.js'),
-	assert = require('assert');;
+	assert = require('assert');
 
 (function () {
 	console.log('Testing reading contents from one file...');

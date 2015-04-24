@@ -2,7 +2,7 @@
 
 // Prefix definition, for ease of use
 let Prefix = function (length) {
-	this.words = Array(length).join(',').split(',');
+	this.words = new Array(length).join(',').split(',');
 };
 
 // Return the words in the Prefix joined together, to use as Map key
@@ -32,7 +32,7 @@ module.exports.Chain = function (prefixLength) {
 				key = p.toString(); // get the current prefix to use as a key (starting value '')
 
 				if (chain.get(key) === undefined) { // if we haven't added any suffixes to this prefix
-					chain.set(key, Array(s)); // create an array for the key with the suffix `s` as it's only element
+					chain.set(key, new Array(s)); // create an array for the key with the suffix `s` as it's only element
 				}
 				else { // the array has already been created
 					tempArray = chain.get(key); // get a copy of the array
@@ -61,7 +61,7 @@ module.exports.Chain = function (prefixLength) {
 
 			return words.join(' '); // return the list of words joined together by spaces
 		}
-	}
+	};
 };
 
 

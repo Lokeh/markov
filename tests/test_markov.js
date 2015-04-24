@@ -17,7 +17,7 @@ let Markov = require('../markov.js'),
 	let contents = 'This is just a simple test. This is another very simple test. There are so many simple tests used in this test that I\'m not sure it\'s even that simple anymore.';
 	let length = contents.split(' ').length;
 
-	markov.Build(contents)
+	markov.Build(contents);
 	assert(markov.Generate(length).length > 0);
 })();
 
