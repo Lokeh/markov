@@ -18,3 +18,5 @@ let main = require('../main.js'),
 
 	assert(chain.Generate(25).length > 0);
 })();
+
+console.log('All assertions passed.');

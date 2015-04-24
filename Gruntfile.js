@@ -1,3 +1,8 @@
+var tests = {
+  'main': require('./tests/test_main.js'),
+  'markov': require('./tests/test_markov.js')
+};
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -13,7 +18,7 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load the plugin that provides the "jshint" task.
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task(s).
