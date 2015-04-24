@@ -14,8 +14,8 @@ Prefix.prototype.toString = function () {
 
 // Removes first word and appends new word
 Prefix.prototype.shift = function (word) {
-	this.words.shift();
-	this.words.push(word);
+	this.words.shift(); // shift the first element off the beginning
+	this.words.push(word); // push the new element onto the end
 };
 
 module.exports.Chain = function (prefixLength) {
