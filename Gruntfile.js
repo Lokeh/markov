@@ -4,7 +4,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jshint: {
-      all: ['Gruntfile.js', './*.js', 'tests/*.js']
+      all: ['Gruntfile.js', './*.js', 'tests/*.js'],
+      options: {
+        esnext: true,
+        node: true,
+        globals: {'require': true, 'module': true, 'console': true }
+      }
     }
   });
 
