@@ -3,7 +3,7 @@
 let Markov = require('./markov.js'),
 	fs = require('fs');
 
-module.exports.buildChainFromFiles = function (prefixLength) {
+let buildChainFromFiles = function (prefixLength) { // buildChainFromFiles(prefixLength, file1, file2, file3, ...)
 	let chain = Markov.Chain(prefixLength);
 	let files = Array.prototype.slice.call(arguments, 1);
 	let contents = '';
@@ -16,3 +16,12 @@ module.exports.buildChainFromFiles = function (prefixLength) {
 
 	return chain;
 };
+
+// Get command line arguments to read in filenames
+let argv = process.argv.slice(2);
+
+let markovChain = buildChainFromFiles.apply(this, [2].concat(argv));
+
+console.log(markovChain.Generate(50));
+
+module.exports.buildChain = buildChainFromFiles;
