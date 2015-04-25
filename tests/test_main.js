@@ -20,16 +20,6 @@ let main = require('../main.js'),
 })();
 
 (function () {
-	console.log('Testing building chain from buffer...');
-	let buffer = fs.readFileSync('./tests/test.txt');
-	assert(typeof buffer === 'object', 'Create buffer');
-	let chain = Markov.Chain();
-	main.fromBuffer(chain, 2, buffer);
-	// console.log('"'+chain.Generate(50)+'"');
-	assert(chain.Generate(10).length > 0, 'Generates string');
-})();
-
-(function () {
 	console.log('Testing endOn...');
 	let charSet = '.?!',
 		string1 = 'asdf',

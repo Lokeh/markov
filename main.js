@@ -13,12 +13,6 @@ let readFiles = function () { // readFiles(file1, file2, file3, ...) => String[]
 	});
 };
 
-let fromBuffer = function (chain, prefixLength, buffer) {
-	chain.Build(buffer.toString('utf8'));
-
-	return chain;
-};
-
 let endOn = function (string, charSet) {
 	function endsWith(string, chars) {
 		let ends = false,
