@@ -3,9 +3,19 @@
 let Markov = require('./markov.js'),
 	fs = require('fs');
 
-let buildChainFromFiles = function (prefixLength) { // buildChainFromFiles(prefixLength, file1, file2, file3, ...)
-	let chain = Markov.Chain(prefixLength);
-	let files = Array.prototype.slice.call(arguments, 1);
+let buildFromDelimitedString = function (chain, prefixLength, string, delimiter) {
+	// let chain = Markov.Chain(prefixLength);
+	
+	for (let s of string.split(delimiter)) {
+		chain.Build(s);
+	}
+
+	return chain;
+};
+
+let buildChainFromFiles = function (chain, prefixLength) { // buildChainFromFiles(prefixLength, file1, file2, file3, ...)
+	// let chain = Markov.Chain(prefixLength);
+	let files = Array.prototype.slice.call(arguments, 2);
 
 	files.forEach(function (file) {
 		chain.Build(fs.readFileSync(file, 'utf8'));
@@ -14,8 +24,8 @@ let buildChainFromFiles = function (prefixLength) { // buildChainFromFiles(prefi
 	return chain;
 };
 
-let buildChainFromBuffer = function (prefixLength, buffer) {
-	let chain = Markov.Chain(prefixLength);
+let buildChainFromBuffer = function (chain, prefixLength, buffer) {
+	// let chain = Markov.Chain(prefixLength);
 	chain.Build(buffer.toString('utf8'));
 
 	return chain;
@@ -36,8 +46,7 @@ let endOn = function (string, charSet) {
 	}
 
 	function lastIndexOf(string, chars) {
-		let ends = false,
-			lastIndex = -1,
+		let lastIndex = -1,
 			maxIndex = -1;
 
 		for (let c of chars) {
@@ -59,10 +68,13 @@ let endOn = function (string, charSet) {
 module.exports.fromFiles = buildChainFromFiles;
 module.exports.fromBuffer = buildChainFromBuffer;
 module.exports.endOn = endOn;
+module.exports.fromDelimited = buildFromDelimitedString;
 
 // Get command line arguments to read in filenames
 let argv = process.argv.slice(2);
 
-let markovChain = buildChainFromFiles.apply(this, [2].concat(argv));
+let markovChain = Markov.Chain();
+
+buildChainFromFiles.apply(this, [markovChain, 2].concat(argv));
 
 console.log(endOn(markovChain.Generate(50), '.?!'));
