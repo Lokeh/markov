@@ -57,7 +57,7 @@ let argv = process.argv.slice(2);
 let markovChain = Markov.Chain();
 
 // Build chain from files
-readFiles.apply(this, argv).forEach(function (contents) {
+readFiles.apply(null, argv).forEach(function (contents) {
 	parseDelimiter(contents, '\n').forEach(markovChain.Build);
 });
 
