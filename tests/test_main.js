@@ -29,4 +29,21 @@ let main = require('../main.js'),
 	assert(chain.Generate(10).length > 0);
 })();
 
+(function () {
+	console.log('Testing endOnPunctuation...');
+	let string1 = 'asdf',
+		string2 = 'asdf.',
+		string3 = 'asdf?',
+		string4 = 'asdf!',
+		string5 = 'asdf. jkl',
+		string6 = 'asdf? jkl!';
+
+	assert(main.endOnPunctuation(string1) === '');
+	assert(main.endOnPunctuation(string2) === string2);
+	assert(main.endOnPunctuation(string3) === string3);
+	assert(main.endOnPunctuation(string4) === string4);
+	assert(main.endOnPunctuation(string5) === 'asdf.');
+	assert(main.endOnPunctuation(string6) === string6);
+})();
+
 console.log('All assertions passed.');
