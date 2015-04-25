@@ -3,26 +3,17 @@
 let Markov = require('./markov.js'),
 	fs = require('fs');
 
-let parseDelimiter = function (chain, prefixLength, string, delimiter) {
-	// let chain = Markov.Chain(prefixLength);
-	
-	for (let s of string.split(delimiter)) {
-		chain.Build(s);
-	}
-
-	return chain;
+let parseDelimiter = function (string, delimiter) {
+	return string.split(delimiter);
 };
 
 let readFiles = function () { // readFiles(file1, file2, file3, ...) => String[]
-	let files = Array.prototype.slice.call(arguments).map(function (file) {
+	return Array.prototype.slice.call(arguments).map(function (file) {
 		return fs.readFileSync(file, 'utf8');
 	});
-
-	return files;
 };
 
 let fromBuffer = function (chain, prefixLength, buffer) {
-	// let chain = Markov.Chain(prefixLength);
 	chain.Build(buffer.toString('utf8'));
 
 	return chain;

@@ -48,13 +48,11 @@ let main = require('../main.js'),
 })();
 
 (function () {
-	console.log('Testing buildFromDelimitedString...');
+	console.log('Testing parseDelimiter...');
 	let string = 'asdf jkl\njkl qwerty\nqwerty yuiop\nyuiop';
+	let parsedArray = main.parseDelimiter(string, '\n');
 
-	let chain = Markov.Chain();
-	main.parseDelimiter(chain, 1, string, '\n');
-
-	assert(chain.Generate(3).length > 0);
+	assert(parsedArray.length === 4, 'String parsed by newline');
 })();
 
 console.log('All assertions passed.');
