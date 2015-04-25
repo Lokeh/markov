@@ -51,16 +51,18 @@ module.exports.readFiles = readFiles;
 module.exports.endOn = endOn;
 module.exports.parseDelimiter = parseDelimiter;
 
-// Get command line arguments to read in filenames
-let argv = process.argv.slice(2);
+if (!module.parent) { // being accessed from the command line...
+	// Get command line arguments to read in filenames
+	let argv = process.argv.slice(2);
 
-let markovChain = Markov.Chain();
+	let markovChain = Markov.Chain();
 
-// Build chain from files
-readFiles.apply(null, argv).forEach(function (contents) {
-	parseDelimiter(contents, '\n').forEach(markovChain.Build);
-});
+	// Build chain from files
+	readFiles.apply(null, argv).forEach(function (contents) {
+		parseDelimiter(contents, '\n').forEach(markovChain.Build);
+	});
 
-// console.log(markovChain.debug());
+	// console.log(markovChain.debug());
 
-console.log(markovChain.Generate(50));
+	console.log(markovChain.Generate(50));
+}
