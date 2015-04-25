@@ -29,7 +29,18 @@ let Markov = require('../markov.js'),
 
 	markov.Build(seed1);
 	markov.Build(seed2);
-	assert(markov.Generate(4).length === 4);
+
+	let string = markov.Generate(4).split(' ');
+	assert(string.length === 4);
+})();
+
+(function () {
+	console.log('Testing debug...');
+	let markov = new Markov.Chain();
+	let contents = 'This is just a simple test. This is another very simple test. There are so many simple tests used in this test that I\'m not sure it\'s even that simple anymore.';
+
+	markov.Build(contents);
+	console.log(markov.debug());
 })();
 
 console.log('All assertions passed.');

@@ -61,8 +61,13 @@ module.exports.Chain = function (prefixLength) {
 
 			return words.join(' '); // return the list of words joined together by spaces
 		},
-		Debug: function () {
-			return chain;
+		debug: function () {
+			// output the chain in human-readable format
+			let string = '';
+			for (let el of chain.entries()) {
+				string += `["${el[0]}": [${el[1]}]]\n`;
+			}
+			return string;
 		}
 	};
 };

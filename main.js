@@ -19,7 +19,11 @@ let buildChainFromBuffer = function (prefixLength, buffer) {
 	chain.Build(buffer.toString('utf8'));
 
 	return chain;
-}
+};
+
+let endOnPeriod = function (string) {
+
+};
 
 module.exports.fromFiles = buildChainFromFiles;
 module.exports.fromBuffer = buildChainFromBuffer;
