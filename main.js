@@ -21,16 +21,48 @@ let buildChainFromBuffer = function (prefixLength, buffer) {
 	return chain;
 };
 
-let endOnPeriod = function (string) {
+let endOnPunctuation = function (string) { //, punctuation) {
+	function endsWith(string, punct) {
+		let ends = false,
+			last = string[string.length-1];
 
+		for (let c of punct) {
+			if (last === c) {
+				ends = true;
+			}
+		}
+
+		return ends;
+	}
+
+	function lastIndexOf(string, punct) {
+		let ends = false,
+			lastIndex = [];
+
+		for (let c of punct) {
+			lastIndex.push(string.lastIndexOf(c));
+		}
+
+		var maxIndex = Math.max.apply(Math, lastIndex);
+
+		return maxIndex;
+	}
+
+	if (endsWith(string, '.?!'))
+		return string;
+
+	let punctIndex = lastIndexOf(string, '.?!');
+
+	return string.substr(0, punctIndex+1);
 };
 
 module.exports.fromFiles = buildChainFromFiles;
 module.exports.fromBuffer = buildChainFromBuffer;
+module.exports.endOnPunctuation = endOnPunctuation;
 
 // Get command line arguments to read in filenames
 let argv = process.argv.slice(2);
 
 let markovChain = buildChainFromFiles.apply(this, [2].concat(argv));
 
-console.log(markovChain.Generate(50));
+console.log(endOnPunctuation(markovChain.Generate(50)));
