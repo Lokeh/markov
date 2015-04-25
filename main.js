@@ -3,7 +3,7 @@
 let Markov = require('./markov.js'),
 	fs = require('fs');
 
-let buildFromDelimitedString = function (chain, prefixLength, string, delimiter) {
+let parseDelimiter = function (chain, prefixLength, string, delimiter) {
 	// let chain = Markov.Chain(prefixLength);
 	
 	for (let s of string.split(delimiter)) {
@@ -13,18 +13,15 @@ let buildFromDelimitedString = function (chain, prefixLength, string, delimiter)
 	return chain;
 };
 
-let buildChainFromFiles = function (chain, prefixLength) { // buildChainFromFiles(prefixLength, file1, file2, file3, ...)
-	// let chain = Markov.Chain(prefixLength);
-	let files = Array.prototype.slice.call(arguments, 2);
-
-	files.forEach(function (file) {
-		chain.Build(fs.readFileSync(file, 'utf8'));
+let readFiles = function () { // readFiles(file1, file2, file3, ...) => String[]
+	let files = Array.prototype.slice.call(arguments).map(function (file) {
+		return fs.readFileSync(file, 'utf8');
 	});
 
-	return chain;
+	return files;
 };
 
-let buildChainFromBuffer = function (chain, prefixLength, buffer) {
+let fromBuffer = function (chain, prefixLength, buffer) {
 	// let chain = Markov.Chain(prefixLength);
 	chain.Build(buffer.toString('utf8'));
 
@@ -65,16 +62,16 @@ let endOn = function (string, charSet) {
 	return string.substr(0, punctIndex+1);
 };
 
-module.exports.fromFiles = buildChainFromFiles;
-module.exports.fromBuffer = buildChainFromBuffer;
+module.exports.readFiles = readFiles;
+module.exports.fromBuffer = fromBuffer;
 module.exports.endOn = endOn;
-module.exports.fromDelimited = buildFromDelimitedString;
+module.exports.parseDelimiter = parseDelimiter;
 
 // Get command line arguments to read in filenames
-let argv = process.argv.slice(2);
+// let argv = process.argv.slice(2);
 
-let markovChain = Markov.Chain();
+// let markovChain = Markov.Chain();
 
-buildChainFromFiles.apply(this, [markovChain, 2].concat(argv));
+// // readFiles.apply(this, [markovChain, 2].concat(argv));
 
-console.log(endOn(markovChain.Generate(50), '.?!'));
+// console.log(endOn(markovChain.Generate(50), '.?!'));

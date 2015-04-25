@@ -7,20 +7,16 @@ let main = require('../main.js'),
 
 (function () {
 	console.log('Testing reading contents from one file...');
-	let chain = Markov.Chain();
-	main.fromFiles(chain, 2, './tests/test.txt');
-	// console.log('"'+chain.Generate(50)+'"');
+	let stringArray = main.readFiles('./tests/test.txt');
 
-	assert(chain.Generate(25).length > 0, 'Generates string');
+	assert(stringArray[0].length > 0, 'Read string');
 })();
 
 (function () {
 	console.log('Testing reading contents from two files...');
-	let chain = Markov.Chain();
-	main.fromFiles(chain, 2, './tests/test.txt', './tests/test2.txt');
-	// console.log('"'+chain.Generate(100)+'"');
+	let stringArray = main.readFiles('./tests/test.txt', './tests/test2.txt');
 
-	assert(chain.Generate(25).length > 0, 'Generates string');
+	assert(stringArray[0].length > 0 && stringArray[1].length > 0, 'Read strings');
 })();
 
 (function () {
@@ -56,7 +52,7 @@ let main = require('../main.js'),
 	let string = 'asdf jkl\njkl qwerty\nqwerty yuiop\nyuiop';
 
 	let chain = Markov.Chain();
-	main.fromDelimited(chain, 1, string, '\n');
+	main.parseDelimiter(chain, 1, string, '\n');
 
 	assert(chain.Generate(3).length > 0);
 })();
