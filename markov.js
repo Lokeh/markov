@@ -8,7 +8,7 @@ let Prefix = function (length) {
 // Return the words in the Prefix joined together, to use as Map key
 Prefix.prototype.toString = function () {
 	return this.words.filter(function (el) {
-		return el !== ''; // don't 
+		return el !== ''; // don't create spaces for blank values
 	}).join(' ');
 };
 
@@ -60,6 +60,9 @@ module.exports.Chain = function (prefixLength) {
 			}
 
 			return words.join(' '); // return the list of words joined together by spaces
+		},
+		Debug: function () {
+			return chain;
 		}
 	};
 };

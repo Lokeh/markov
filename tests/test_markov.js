@@ -21,4 +21,15 @@ let Markov = require('../markov.js'),
 	assert(markov.Generate(length).length > 0);
 })();
 
+(function () {
+	console.log('Testing two seed texts...');
+	let markov = new Markov.Chain();
+	let seed1 = 'asdf jkl; asdf';
+	let seed2 = 'jkl; asdf jkl;';
+
+	markov.Build(seed1);
+	markov.Build(seed2);
+	assert(markov.Generate(4).length === 4);
+})();
+
 console.log('All assertions passed.');
