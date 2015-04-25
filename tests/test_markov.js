@@ -8,7 +8,7 @@ let Markov = require('../markov.js'),
 	let markov = new Markov.Chain(1);
 
 	markov.Build('asdf');
-	assert.strictEqual(markov.Generate(1), 'asdf');
+	assert.strictEqual(markov.Generate(1), 'asdf', 'generates word');
 })();
 
 (function () {
@@ -18,7 +18,7 @@ let Markov = require('../markov.js'),
 	let length = contents.split(' ').length;
 
 	markov.Build(contents);
-	assert(markov.Generate(length).length > 0);
+	assert(markov.Generate(length).length > 0, 'generate text');
 })();
 
 (function () {
@@ -31,7 +31,7 @@ let Markov = require('../markov.js'),
 	markov.Build(seed2);
 
 	let string = markov.Generate(4).split(' ');
-	assert(string.length === 4);
+	assert(string.length === 4, 'contains 4 words');
 })();
 
 (function () {
@@ -40,7 +40,8 @@ let Markov = require('../markov.js'),
 	let contents = 'This is just a simple test. This is another very simple test. There are so many simple tests used in this test that I\'m not sure it\'s even that simple anymore.';
 
 	markov.Build(contents);
-	console.log(markov.debug());
+	// console.log(markov.debug());
+	assert(typeof markov.debug() === 'string', 'Debug is string');
 })();
 
 console.log('All assertions passed.');

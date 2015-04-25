@@ -21,12 +21,12 @@ let buildChainFromBuffer = function (prefixLength, buffer) {
 	return chain;
 };
 
-let endOnPunctuation = function (string) { //, punctuation) {
-	function endsWith(string, punct) {
+let endOn = function (string, charSet) {
+	function endsWith(string, chars) {
 		let ends = false,
 			last = string[string.length-1];
 
-		for (let c of punct) {
+		for (let c of chars) {
 			if (last === c) {
 				ends = true;
 			}
@@ -35,34 +35,34 @@ let endOnPunctuation = function (string) { //, punctuation) {
 		return ends;
 	}
 
-	function lastIndexOf(string, punct) {
+	function lastIndexOf(string, chars) {
 		let ends = false,
-			lastIndex = [];
+			lastIndex = -1,
+			maxIndex = -1;
 
-		for (let c of punct) {
-			lastIndex.push(string.lastIndexOf(c));
+		for (let c of chars) {
+			lastIndex = string.lastIndexOf(c);
+			maxIndex = (maxIndex >= lastIndex) ? maxIndex : lastIndex;
 		}
-
-		var maxIndex = Math.max.apply(Math, lastIndex);
 
 		return maxIndex;
 	}
 
-	if (endsWith(string, '.?!'))
+	if (endsWith(string, charSet))
 		return string;
 
-	let punctIndex = lastIndexOf(string, '.?!');
+	let punctIndex = lastIndexOf(string, charSet);
 
 	return string.substr(0, punctIndex+1);
 };
 
 module.exports.fromFiles = buildChainFromFiles;
 module.exports.fromBuffer = buildChainFromBuffer;
-module.exports.endOnPunctuation = endOnPunctuation;
+module.exports.endOn = endOn;
 
 // Get command line arguments to read in filenames
 let argv = process.argv.slice(2);
 
 let markovChain = buildChainFromFiles.apply(this, [2].concat(argv));
 
-console.log(endOnPunctuation(markovChain.Generate(50)));
+console.log(endOn(markovChain.Generate(50), '.?!'));
