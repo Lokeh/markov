@@ -37,12 +37,4 @@ let main = require('../main.js'),
 	assert(main.endOn(string6, charSet) === string6, 'Contains ?, end on !');
 })();
 
-(function () {
-	console.log('Testing parseDelimiter...');
-	let string = 'asdf jkl\njkl qwerty\nqwerty yuiop\nyuiop';
-	let parsedArray = main.parseDelimiter(string, '\n');
-
-	assert(parsedArray.length === 4, 'String parsed by newline');
-})();
-
 console.log('All assertions passed.');

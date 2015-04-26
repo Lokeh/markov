@@ -3,10 +3,6 @@
 let Markov = require('./markov.js'),
 	fs = require('fs');
 
-let parseDelimiter = function (string, delimiter) {
-	return string.split(delimiter);
-};
-
 let readFiles = function () { // readFiles(file1, file2, file3, ...) => String[]
 	return Array.prototype.slice.call(arguments).map(function (file) {
 		return fs.readFileSync(file, 'utf8');
@@ -49,7 +45,6 @@ let endOn = function (string, charSet) {
 
 module.exports.readFiles = readFiles;
 module.exports.endOn = endOn;
-module.exports.parseDelimiter = parseDelimiter;
 
 if (!module.parent) { // being accessed from the command line...
 	// Get command line arguments to read in filenames
@@ -59,7 +54,7 @@ if (!module.parent) { // being accessed from the command line...
 
 	// Build chain from files
 	readFiles.apply(null, argv).forEach(function (contents) {
-		parseDelimiter(contents, '\n').forEach(markovChain.Build);
+		contents.split('\n').forEach(markovChain.Build);
 	});
 
 	// console.log(markovChain.debug());
