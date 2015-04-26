@@ -1,7 +1,7 @@
 {
-  "name": "markov-headline",
+  "name": "markov",
   "version": "0.0.1",
-  "description": "Generate headlines based on two source texts",
+  "description": "Generate random text based on multiple sources",
   "main": "markov.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
