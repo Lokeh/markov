@@ -18,9 +18,9 @@ Prefix.prototype.shift = function (word) {
 	this.words.push(word); // push the new element onto the end
 };
 
-module.exports.Chain = function (prefixLength) {
+module.exports.Chain = function (order) { // create new Markov chain of order `order` (default 2)
 	let chain = new Map(),
-		length = prefixLength || 2;
+		length = order || 2;
 
 	return {
 		// Build the chain based off a string, 'contents'
@@ -41,6 +41,8 @@ module.exports.Chain = function (prefixLength) {
 				}
 				p.shift(s); // pop off the first word, append the suffix `s` to create the next prefix
 			});
+
+			return this; // make it chain-able e.g. `let text = require('markov').Chain().Build('some text').Generate();`
 		},
 		Generate: function (numberOfWords) {
 			// Generate a string of words based off the current chain
