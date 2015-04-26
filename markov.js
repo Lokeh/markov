@@ -18,7 +18,7 @@ Prefix.prototype.shift = function (word) {
 	this.words.push(word); // push the new element onto the end
 };
 
-module.exports.Chain = function (order) { // create new Markov chain of order `order` (default 2)
+let Chain = module.exports.Chain = function (order) { // create new Markov chain of order `order` (default 2)
 	let chain = new Map(),
 		length = order || 2;
 
