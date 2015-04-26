@@ -1,5 +1,14 @@
 "use strict";
 
+/*
+	Markov chain text generator
+	Author: Will Acton
+	Date: April, 2015
+	Summary: Builds a Markov chain of a words to generate random text
+	Based off of the Go walk-through here:
+	https://golang.org/doc/codewalk/markov/
+*/
+
 // Prefix definition, for ease of use
 let Prefix = function (length) {
 	this.words = new Array(length).join(',').split(',');

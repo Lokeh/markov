@@ -57,7 +57,5 @@ if (!module.parent) { // being accessed from the command line...
 		contents.split('\n').forEach(markovChain.Build);
 	});
 
-	// console.log(markovChain.debug());
-
 	console.log(markovChain.Generate(50));
 }
