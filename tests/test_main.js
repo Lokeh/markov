@@ -1,27 +1,27 @@
 'use strict';
 
-let main = require('../main.js'),
-	Markov = require('../markov.js'),
-	assert = require('assert'),
-	fs = require('fs');
+const main = require('../main.js');
+const Markov = require('../markov.js');
+const assert = require('assert');
+const fs = require('fs');
 
 (function () {
 	console.log('Testing reading contents from one file...');
-	let stringArray = main.readFiles('./tests/test.txt');
+	const stringArray = main.readFiles('./tests/test.txt');
 
 	assert(stringArray[0].length > 0, 'Read string');
 })();
 
 (function () {
 	console.log('Testing reading contents from two files...');
-	let stringArray = main.readFiles('./tests/test.txt', './tests/test2.txt');
+	const stringArray = main.readFiles('./tests/test.txt', './tests/test2.txt');
 
 	assert(stringArray[0].length > 0 && stringArray[1].length > 0, 'Read strings');
 })();
 
 (function () {
 	console.log('Testing endOn...');
-	let charSet = '.?!',
+	const charSet = '.?!',
 		string1 = 'asdf',
 		string2 = 'asdf.',
 		string3 = 'asdf?',

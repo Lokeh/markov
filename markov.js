@@ -10,7 +10,7 @@
 */
 
 // Prefix definition, for ease of use
-let Prefix = function (length) {
+const Prefix = function (length) {
 	this.words = new Array(length).join(',').split(',');
 };
 
@@ -27,16 +27,15 @@ Prefix.prototype.shift = function (word) {
 	this.words.push(word); // push the new element onto the end
 };
 
-let Chain = module.exports.Chain = function (order) { // create new Markov chain of order `order` (default 2)
-	let chain = new Map(),
-		length = order || 2;
+const Chain = module.exports.Chain = function (order) { // create new Markov chain of order `order` (default 2)
+	const chain = new Map();
+	const length = order || 2;
 
 	return {
 		// Build the chain based off a string, 'contents'
 		Build: function (contents) {
-			let p = new Prefix(length),
-				key,
-				tempArray;
+			const p = new Prefix(length);
+			let key, tempArray;
 			contents.split(' ').forEach(function (s) { // split the string into an array of words
 				key = p.toString(); // get the current prefix to use as a key (starting value '')
 
@@ -51,14 +50,13 @@ let Chain = module.exports.Chain = function (order) { // create new Markov chain
 				p.shift(s); // pop off the first word, append the suffix `s` to create the next prefix
 			});
 
-			return this; // make it chain-able e.g. `let text = require('markov').Chain().Build('some text').Generate();`
+			return this; // make it chain-able e.g. `const text = require('markov').Chain().Build('some text').Generate();`
 		},
 		Generate: function (numberOfWords) {
 			// Generate a string of words based off the current chain
-			let p = new Prefix(length),
-				words = [], // this is our list of words for our sentence
-				suffixes,
-				next;
+			const p = new Prefix(length);
+			const words = []; // this is our list of words for our sentence
+			let suffixes, next;
 
 			for (let i = 0; i < numberOfWords; i++) {
 				suffixes = chain.get(p.toString()); // get the array of suffixes for the current prefix

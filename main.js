@@ -1,18 +1,18 @@
 'use strict';
 
-let Markov = require('./markov.js'),
-	fs = require('fs');
+const Markov = require('./markov.js');
+const fs = require('fs');
 
-let readFiles = function () { // readFiles(file1, file2, file3, ...) => String[]
+const readFiles = function () { // readFiles(file1, file2, file3, ...) => String[]
 	return Array.prototype.slice.call(arguments).map(function (file) {
 		return fs.readFileSync(file, 'utf8');
 	});
 };
 
-let endOn = function (string, charSet) {
+const endOn = function (string, charSet) {
 	function endsWith(string, chars) {
-		let ends = false,
-			last = string[string.length-1];
+		let ends = false;
+		const last = string[string.length-1];
 
 		for (let c of chars) {
 			if (last === c) {
@@ -38,7 +38,7 @@ let endOn = function (string, charSet) {
 	if (endsWith(string, charSet))
 		return string;
 
-	let punctIndex = lastIndexOf(string, charSet);
+	const punctIndex = lastIndexOf(string, charSet);
 
 	return string.substr(0, punctIndex+1);
 };
@@ -48,9 +48,9 @@ module.exports.endOn = endOn;
 
 if (!module.parent) { // being accessed from the command line...
 	// Get command line arguments to read in filenames
-	let argv = process.argv.slice(2);
+	const argv = process.argv.slice(2);
 
-	let markovChain = Markov.Chain();
+	const markovChain = Markov.Chain();
 
 	// Build chain from files
 	readFiles.apply(null, argv).forEach(function (contents) {
